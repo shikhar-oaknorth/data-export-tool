@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "Mambu → JSON Export",
+  "description": "One-click JSON download of tables & key/value fields from Mambu UI.",
+  "version": "1.0.0",
+  "author": "Internal Tools Team",
+  "action": {
+    "default_title": "Export JSON",
+    "default_icon": {
+      "16": "src/icon.svg",
+      "32": "src/icon.svg",
+      "48": "src/icon.svg",
+      "128": "src/icon.svg"
+    },
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "scripting",
+    "downloads"
+  ],
+  "host_permissions": [
+    "https://mambu.oaknorth-it.com/*"
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'none';"
+  }
+}
