@@ -1,4 +1,3 @@
-// popup.js  (runs inside the popup)
 document.addEventListener('DOMContentLoaded', () => {
   const btn = document.getElementById('export');
   btn.addEventListener('click', async () => {
