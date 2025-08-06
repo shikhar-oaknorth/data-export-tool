@@ -6,7 +6,7 @@ One-click JSON dump of tables and key/value panels for our Mambu tenant.
 
 1. Clone repo.
 2. `chrome://extensions` → *Load unpacked* → pick the `mambu-export` folder.
-3. Navigate to https://YOUR_TENANT.mambu.com, open any account page.
+3. Navigate to https://oaknorth.mambu.com, open any account page.
 4. Click the blue **Export JSON** icon – file `mambu_export.json` downloads.
 
 ## Build signed CRX for production
