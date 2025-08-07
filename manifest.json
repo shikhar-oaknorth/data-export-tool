@@ -3,7 +3,7 @@
   "name": "Mambu → JSON Export",
   "description": "One-click JSON download of tables & key/value fields from Mambu UI.",
   "version": "1.0.0",
-  "author": "Internal Tools Team",
+  "author": "Shikhar Agarwal",
   "action": {
     "default_title": "Export JSON",
     "default_icon": {

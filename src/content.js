@@ -57,6 +57,6 @@
   URL.revokeObjectURL(url);
 
   console.clear();
-  console.log('✅ Exported tables:', Object.keys(result));
+  console.log('Exported tables:', Object.keys(result));
   return result;
 })();
