@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "JSON Export Tool",
   "description": "One-click JSON download of tables & key/value fields from Mambu and Nucleus UI.",
-  "version": "2.0.1",
+  "version": "1.0.0",
   "author": "Shikhar Agarwal",
   "action": {
     "default_title": "Export JSON",
