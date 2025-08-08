@@ -1,102 +1,146 @@
 # JSON Export Tool (Chrome / Edge Extension)
 
-One-click JSON dump of tables and key/value panels for Mambu and Nucleus tenants with advanced popup data extraction.
+One-click JSON dump of tables and key/value panels for Mambu and Nucleus tenants with **instant popup capture functionality**.
 
 ## Features
 
 - **Mambu → JSON**: Export standard Mambu table data
 - **Nucleus → JSON**: Export Nucleus transaction tables  
-- **Nucleus (Include popup) → JSON**: Export Nucleus data including detailed popup information for each row
+- **Capture Open Popup**: Instantly extract data from any currently visible popup/modal
 
-## Install (developer)
+## Installation (Developer Mode)
 
-1. Download zip
-2. Extract the files
-3. Open browser → Extensions → Turn developer mode: On
-4. `chrome://extensions` → *Load unpacked* → pick the `mambu-export` folder.
+1. Download or clone the repository
+2. Extract the files to a folder (e.g., `JSON-export`)
+3. Open Chrome/Edge → Navigate to Extensions (`chrome://extensions`)
+4. Turn on **Developer mode** (toggle in top right)
+5. Click **"Load unpacked"** → Select the `JSON-export` folder
+6. Extension should appear in your browser toolbar
 
-## Usage
+## Usage Guide
 
-### For Mambu
-1. Navigate to https://mambu.oaknorth-it.com/, open any account page.
-2. Click the extension icon
-3. Select **Mambu → JSON** 
-4. File `mambu_export.json` downloads.
+### 1. Mambu Export
+**Purpose**: Extract table data from Mambu loan management system
 
-### For Nucleus
-1. Navigate to https://nucleus.oaknorth.co.uk/, open any loan detail page with transactions.
-2. Click the extension icon
-3. Choose from:
-   - **Nucleus → JSON**: Basic table export (`nucleus_export.json`)
-   - **Nucleus (Include popup) → JSON**: Enhanced export with popup details (`nucleus_popup_export.json`)
+**Steps**:
+1. Navigate to `https://mambu.oaknorth-it.com/`
+2. Open any account or loan page with tables
+3. Click the extension icon
+4. Select **"Export JSON"** under Mambu section
+5. File `mambu_export.json` downloads automatically
 
-## Nucleus Popup Feature
+### 2. Nucleus Export  
+**Purpose**: Extract transaction table data from Nucleus platform
 
-When using "Nucleus (Include popup) → JSON", the extension will:
+**Steps**:
+1. Navigate to `https://nucleus.oaknorth.co.uk/`
+2. Open any loan detail page with transaction tables
+3. Click the extension icon
+4. Select **"Export JSON"** under Nucleus section
+5. File `nucleus_export.json` downloads automatically
 
-1. Parse the main transaction table
-2. Automatically click on "View Transaction" icons (👁️) for rows that have them
-3. Extract detailed information from each popup dialog:
-   - Transaction Reference
-   - Loan Transfer Details  
-   - Transaction Amounts
-   - Principal/Interest Information
-   - Application Types
-   - Remarks
-   - And more...
-4. Include this data as `popup_details` field for each corresponding row
-5. Automatically close popups and continue processing
+### 3. Capture Open Popup
+**Purpose**: Extract data from any currently open popup/modal dialog
 
-## Output Structure
+**Steps**:
+1. Navigate to any supported website
+2. **Manually open a popup** (click any "View Details", "👁️" icon, etc.)
+3. **While popup is still open**, click the extension icon
+4. Select **"Capture Open Popup"**
+5. File `popup_capture_export.json` downloads instantly
 
-### Basic Export
-```json
-{
-  "nucleus_table_0": [
-    {
-      "Transaction Ref.": "82952",
-      "Transaction Date": "01-05-2021", 
-      "Transaction Type": "Transfer In",
-      "Transaction Amount": "£5,536,519.30",
-      "Created On": "01-05-2021 4:30:59 PM",
-      "Created By": "guest"
-    }
-  ]
-}
+## Workflow Examples
+
+### Scenario 1: Bulk Table Export
+- Use **Mambu** or **Nucleus** export for quick table data extraction
+- Perfect for getting overview data or preparing reports
+
+### Scenario 2: Detailed Transaction Analysis
+1. Use **Nucleus Export** to get the main transaction table
+2. Identify transactions of interest
+3. Manually open specific transaction popups
+4. Use **Capture Open Popup** to get detailed information for each
+
+## Technical Details
+
+### File Structure
+```
+mambu-export/
+├── manifest.json          # Extension configuration
+├── popup.html             # Extension popup interface
+├── popup.js               # Popup logic and data extraction
+├── background.js           # Background script (minimal)
+└── src/
+    ├── content.js          # Legacy content script (for compatibility)
+    └── icon.svg            # Extension icon
 ```
 
-### With Popup Details
-```json
-{
-  "nucleus_table_0": [
-    {
-      "Transaction Ref.": "82952",
-      "Transaction Date": "01-05-2021",
-      "Transaction Type": "Transfer In", 
-      "Transaction Amount": "£5,536,519.30",
-      "Created On": "01-05-2021 4:30:59 PM",
-      "Created By": "guest",
-      "popup_details": {
-        "Transaction Ref.": "82952",
-        "Loan Transfer In Date": "01-05-2021",
-        "External Loan Id": "1066003688",
-        "Transaction Amount": "£5,536,519.30",
-        "Blocked Account Amount": "£0.00",
-        "Retained Interest Amount": "£0.00",
-        "Principal Transferred": "£5,535,592.66",
-        "Interest Accrual Transferred": "£926.64",
-        "Remarks": "-"
-      }
-    }
-  ]
-}
-```
+### Browser Compatibility
+- **Chrome**: Full support (Manifest V3)
+- **Edge**: Full support (Chromium-based)
+- **Firefox**: Not supported (uses Manifest V3)
 
-## Technical Notes
+### Permissions Required
+- `scripting`: To inject code into web pages
+- `activeTab`: To access current tab content
+- `downloads`: To download JSON files
+- `host_permissions`: Access to Mambu and Nucleus domains
 
-- Uses Angular Material table selectors for Nucleus
-- Implements smart popup detection and data extraction
-- Handles timing delays for popup loading
-- Automatically closes popups to prevent UI interference
-- Fallback mechanisms for different table structures
-- Error handling for failed popup interactions
+## Data Extraction Capabilities
+
+### Mambu
+- Standard HTML tables with headers
+- Key-value pair tables
+- Account information panels
+- Transaction history tables
+
+### Nucleus  
+- Angular Material tables (`mat-table`)
+- Transaction grids with sortable columns
+- Account detail tables
+- Any table with `role="grid"`
+
+## Troubleshooting
+
+### Common Issues
+
+**"No data found to export"**
+- Make sure you're on a page with visible tables
+- Check that the table has headers and data rows
+- Try refreshing the page and attempting again
+
+**"No open popup found"** (Popup Capture)
+- Ensure a popup/modal is actually open and visible
+- The popup must contain text content to be detected
+- Try opening a different popup if the current one isn't detected
+
+**"Download failed"**
+- Data will be copied to clipboard as fallback
+- Check browser console for detailed error information
+- Ensure downloads are allowed for the extension
+
+**Extension not working**
+- Verify you're on the correct domain (mambu.oaknorth-it.com or nucleus.oaknorth.co.uk)
+- Check that the extension has proper permissions
+- Try reloading the extension and refreshing the page
+
+### Debug Information
+Check browser console (F12) for detailed logs:
+- Extension detects which site you're on
+- Shows table detection progress
+- Displays extraction statistics
+- Reports any errors encountered
+
+## Tips
+
+- Check the console for detailed extraction statistics
+- The extension automatically handles different table formats and structures
+- For complex popups, navigate to the section you want before capturing
+
+## Output Files
+
+- `mambu_export.json` - Mambu table data
+- `nucleus_export.json` - Nucleus transaction table data  
+- `popup_capture_export.json` - Data from captured popup/modal
+
+The extension provides the perfect balance of **automated table extraction** and **precise manual popup control** for comprehensive data export capabilities!
