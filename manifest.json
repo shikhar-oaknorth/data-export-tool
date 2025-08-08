@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Mambu → JSON Export",
-  "description": "One-click JSON download of tables & key/value fields from Mambu UI.",
-  "version": "1.0.0",
+  "name": "JSON Export Tool",
+  "description": "One-click JSON download of tables & key/value fields from Mambu and Nucleus UI.",
+  "version": "2.0.1",
   "author": "Shikhar Agarwal",
   "action": {
     "default_title": "Export JSON",
@@ -16,12 +16,11 @@
   },
   "permissions": [
     "scripting",
+    "activeTab",
     "downloads"
   ],
   "host_permissions": [
-    "https://mambu.oaknorth-it.com/*"
-  ],
-  "content_security_policy": {
-    "extension_pages": "script-src 'self'; object-src 'none';"
-  }
+    "https://mambu.oaknorth-it.com/*",
+    "https://nucleus.oaknorth.co.uk/*"
+  ]
 }
